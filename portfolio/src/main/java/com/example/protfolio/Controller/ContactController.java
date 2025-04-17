@@ -24,8 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @RestController
-@CrossOrigin("*")
-// @CrossOrigin(origins = "https://your-netlify-site.netlify.app")
+@CrossOrigin(origins = "https://astonishing-sherbet-feb009.netlify.app")
 @RequestMapping(path = "/Contact")
 @Slf4j
 public class ContactController {

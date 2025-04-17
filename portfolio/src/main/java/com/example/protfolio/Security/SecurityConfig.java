@@ -27,7 +27,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
@@ -50,26 +49,24 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws
-    Exception {
-    return http
-    .cors(Customizer.withDefaults())
-    .sessionManagement(sm ->
-    sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-    .csrf(csrf -> csrf.disable())
-    .authorizeHttpRequests(ar -> ar
-    .requestMatchers("/auth/login").permitAll()
-    .requestMatchers("/Contact/CreateContact/**").permitAll()
-    .requestMatchers("/Home/AllHome/**").permitAll()
-    .requestMatchers("/ResumeEducation/AllResumeEducation/**").permitAll()
-    .requestMatchers("/ResumeExperience/AllResumeExperience/**").permitAll()
-    .requestMatchers("/ResumeSkills/AllResumeSkills/**").permitAll()
-    .requestMatchers("/Service/AllServices/**").permitAll()
-    .requestMatchers("/Work/AllWork/**").permitAll()
-    .requestMatchers("/Home/UpdatedHome/**").permitAll())
-    .authorizeHttpRequests(ar -> ar.anyRequest().authenticated())
-    .oauth2ResourceServer(oa -> oa.jwt(Customizer.withDefaults()))
-    .build();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .cors(Customizer.withDefaults())
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(ar -> ar
+                        .requestMatchers("/auth/login").permitAll()
+                        .requestMatchers("/Contact/CreateContact/**").permitAll()
+                        .requestMatchers("/Home/AllHome/**").permitAll()
+                        .requestMatchers("/ResumeEducation/AllResumeEducation/**").permitAll()
+                        .requestMatchers("/ResumeExperience/AllResumeExperience/**").permitAll()
+                        .requestMatchers("/ResumeSkills/AllResumeSkills/**").permitAll()
+                        .requestMatchers("/Service/AllServices/**").permitAll()
+                        .requestMatchers("/Work/AllWork/**").permitAll()
+                        .requestMatchers("/Home/UpdatedHome/**").permitAll())
+                .authorizeHttpRequests(ar -> ar.anyRequest().authenticated())
+                .oauth2ResourceServer(oa -> oa.jwt(Customizer.withDefaults()))
+                .build();
     }
 
     @Bean
@@ -94,38 +91,23 @@ public class SecurityConfig {
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*");
-        corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.addAllowedHeader("*");
-        corsConfiguration.setExposedHeaders(List.of("x-auth-token"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration);
-        return source;
-    }
-
-     @Bean
     public CorsFilter corsFilter() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        final CorsConfiguration config = new CorsConfiguration();
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(List.of("http://localhost:4200", "http://localhost:2603","https://astonishing-sherbet-feb009.netlify.app"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:4200",
+                "https://astonishing-sherbet-feb009.netlify.app"));
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.ORIGIN,
                 HttpHeaders.CONTENT_TYPE,
                 HttpHeaders.ACCEPT,
-                HttpHeaders.AUTHORIZATION
-        ));
+                HttpHeaders.AUTHORIZATION));
         config.setAllowedMethods(Arrays.asList(
-                "GET",
-                "POST",
-                "DELETE",
-                "PUT",
-                "PATCH"
-        ));
+                "GET", "POST", "PUT", "DELETE", "PATCH"));
+        config.setExposedHeaders(List.of("x-auth-token")); // optional, for custom headers
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
-
     }
+
 }

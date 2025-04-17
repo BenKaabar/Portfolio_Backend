@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "https://astonishing-sherbet-feb009.netlify.app")
 @RequestMapping(path = "/Work")
 @Slf4j
 public class WorkController {
