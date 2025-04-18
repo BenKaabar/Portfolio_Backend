@@ -37,18 +37,16 @@ import com.nimbusds.jose.jwk.source.ImmutableSecret;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-    
+
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        // config.setAllowedOrigins(List.of(
-        //         "http://localhost:4200",
-        //         "http://peaceful-custard-541db3.netlify.app",
-        //         "http://localhost:3000",
-        //         "https://astonishing-sherbet-feb009.netlify.app"));
-        config.addAllowedOriginPattern("*");
+        config.setAllowedOrigins(List.of(
+                "https://benkaabar-portfolio.netlify.app",
+                "http://localhost:4200",
+                "http://localhost:3000"));
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.ORIGIN,
                 HttpHeaders.CONTENT_TYPE,
@@ -56,10 +54,11 @@ public class SecurityConfig {
                 HttpHeaders.AUTHORIZATION));
         config.setAllowedMethods(Arrays.asList(
                 "GET", "POST", "PUT", "DELETE", "PATCH"));
-        config.setExposedHeaders(List.of("x-auth-token")); 
+        config.setExposedHeaders(List.of("x-auth-token"));
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
+
     @Bean
     public UserDetailsService userDetailsService() {
         return new HomeUserDetailsService();
@@ -111,7 +110,5 @@ public class SecurityConfig {
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         return new ProviderManager(daoAuthenticationProvider);
     }
-
- 
 
 }
