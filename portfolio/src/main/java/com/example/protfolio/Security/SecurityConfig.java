@@ -37,7 +37,29 @@ import com.nimbusds.jose.jwk.source.ImmutableSecret;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-
+    
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        // config.setAllowedOrigins(List.of(
+        //         "http://localhost:4200",
+        //         "http://peaceful-custard-541db3.netlify.app",
+        //         "http://localhost:3000",
+        //         "https://astonishing-sherbet-feb009.netlify.app"));
+        config.addAllowedOriginPattern("*");
+        config.setAllowedHeaders(Arrays.asList(
+                HttpHeaders.ORIGIN,
+                HttpHeaders.CONTENT_TYPE,
+                HttpHeaders.ACCEPT,
+                HttpHeaders.AUTHORIZATION));
+        config.setAllowedMethods(Arrays.asList(
+                "GET", "POST", "PUT", "DELETE", "PATCH"));
+        config.setExposedHeaders(List.of("x-auth-token")); 
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
     @Bean
     public UserDetailsService userDetailsService() {
         return new HomeUserDetailsService();
@@ -90,24 +112,6 @@ public class SecurityConfig {
         return new ProviderManager(daoAuthenticationProvider);
     }
 
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.setAllowedOrigins(List.of(
-                "http://localhost:4200",
-                "https://astonishing-sherbet-feb009.netlify.app"));
-        config.setAllowedHeaders(Arrays.asList(
-                HttpHeaders.ORIGIN,
-                HttpHeaders.CONTENT_TYPE,
-                HttpHeaders.ACCEPT,
-                HttpHeaders.AUTHORIZATION));
-        config.setAllowedMethods(Arrays.asList(
-                "GET", "POST", "PUT", "DELETE", "PATCH"));
-        config.setExposedHeaders(List.of("x-auth-token")); // optional, for custom headers
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
+ 
 
 }
