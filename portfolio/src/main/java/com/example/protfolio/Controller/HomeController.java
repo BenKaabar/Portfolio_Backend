@@ -44,7 +44,7 @@ public class HomeController {
     }
 
     @PostMapping("/CreateHome")
-    // @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public ResponseEntity<String> CreateHome(@RequestParam("homeRequestDTO") String homeDTOJson,
             @RequestParam("HomeImage") MultipartFile image,
             @RequestParam("HomeCVfile") MultipartFile CVfile) {

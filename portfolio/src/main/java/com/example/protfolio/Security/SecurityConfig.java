@@ -44,9 +44,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.setAllowedOrigins(List.of(
-                "https://portfolio-benkaabar.netlify.app",
-                "http://localhost:4200",
-                "http://localhost:3000"));
+                "http://localhost:4200"));
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.ORIGIN,
                 HttpHeaders.CONTENT_TYPE,

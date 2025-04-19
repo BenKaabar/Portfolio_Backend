@@ -50,7 +50,6 @@ public class ContactController {
         }
     }
 
-
     @DeleteMapping("/DeleteContact/{idContact}")
     @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public ResponseEntity<String> DeleteContact(@PathVariable String idContact) {
