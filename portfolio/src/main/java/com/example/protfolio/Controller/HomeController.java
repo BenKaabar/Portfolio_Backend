@@ -27,7 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @RestController
-@CrossOrigin(origins = "https://portfolio-benkaabar.netlify.app/")
+@CrossOrigin(origins = "https://portfolio-benkaabar.netlify.app")
+
 @RequestMapping(path = "/Home")
 @Slf4j
 public class HomeController {

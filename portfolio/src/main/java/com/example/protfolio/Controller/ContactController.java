@@ -21,7 +21,8 @@ import com.example.protfolio.Services.Contact.ContactService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-@CrossOrigin(origins = "https://portfolio-benkaabar.netlify.app/")
+@CrossOrigin(origins = "https://portfolio-benkaabar.netlify.app")
+
 
 @AllArgsConstructor
 @RestController
@@ -30,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ContactController {
     @Autowired
     private ContactService contactService;
+
     @PostMapping("/CreateContact")
     public ResponseEntity<String> CreateContact(@RequestBody ContactRequestDTO contactRequestDTO) {
         try {

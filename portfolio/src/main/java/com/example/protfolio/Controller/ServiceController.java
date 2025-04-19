@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @AllArgsConstructor
 @RestController
-@CrossOrigin(origins = "https://portfolio-benkaabar.netlify.app/")
+@CrossOrigin(origins = "https://portfolio-benkaabar.netlify.app")
 @RequestMapping(path = "/Service")
 @Slf4j
 public class ServiceController {
