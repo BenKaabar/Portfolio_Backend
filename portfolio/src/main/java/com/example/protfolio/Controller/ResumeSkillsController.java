@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @RestController
-@CrossOrigin(origins = "https://astonishing-sherbet-feb009.netlify.app")
+@CrossOrigin(origins = "https://portfolio-benkaabar.netlify.app/")
 @RequestMapping(path = "/ResumeSkills")
 @Slf4j
 public class ResumeSkillsController {

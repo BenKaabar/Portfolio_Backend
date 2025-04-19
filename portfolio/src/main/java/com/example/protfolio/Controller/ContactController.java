@@ -21,7 +21,7 @@ import com.example.protfolio.Services.Contact.ContactService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-@CrossOrigin(origins = "https://astonishing-sherbet-feb009.netlify.app")
+@CrossOrigin(origins = "https://portfolio-benkaabar.netlify.app/")
 
 @AllArgsConstructor
 @RestController
