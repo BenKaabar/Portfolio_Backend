@@ -53,7 +53,8 @@ public class SecurityConfig {
         config.setAllowCredentials(true);
         config.setAllowedOrigins(List.of(
                 "http://localhost:4200",
-                "https://portfolio-benkaabar.netlify.app"));
+                "https://portfolio-benkaabar.netlify.app",
+                "https://680402dbe0146e0008c98986--portfolio-benkaabar.netlify.app"));
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.ORIGIN,
                 HttpHeaders.CONTENT_TYPE,
@@ -63,6 +64,7 @@ public class SecurityConfig {
                 "GET", "POST", "PUT", "DELETE", "PATCH"));
         config.setExposedHeaders(List.of("x-auth-token"));
         source.registerCorsConfiguration("/**", config);
+        log.info("Allowed origins: {}", config.getAllowedOrigins());
         return new CorsFilter(source) {
             @Override
             protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
