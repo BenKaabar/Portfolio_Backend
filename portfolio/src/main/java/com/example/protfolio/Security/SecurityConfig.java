@@ -67,10 +67,16 @@ public class SecurityConfig {
         log.info("Allowed origins: {}", config.getAllowedOrigins());
         return new CorsFilter(source) {
             @Override
-            protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                    FilterChain filterChain)
                     throws ServletException, IOException {
                 String origin = request.getHeader("Origin");
                 log.info("Incoming request from Origin: {}", origin);
+                log.info("Method: {}, Origin: {}, URL: {}",
+                        request.getMethod(),
+                        request.getHeader("Origin"),
+                        request.getRequestURL());
+
                 super.doFilterInternal(request, response, filterChain);
             }
         };
