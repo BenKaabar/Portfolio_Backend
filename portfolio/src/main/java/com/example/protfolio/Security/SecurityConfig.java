@@ -33,7 +33,10 @@ import org.springframework.web.filter.CorsFilter;
 import com.example.protfolio.Services.HomeUserDetailsService.HomeUserDetailsService;
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Configuration
+@Slf4j
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
@@ -44,8 +47,8 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.setAllowedOrigins(List.of(
-                "https://portfolio-benkaabar.netlify.app",
-                "http://localhost:4200"));
+                "http://localhost:4200",
+                "https://portfolio-benkaabar.netlify.app"));
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.ORIGIN,
                 HttpHeaders.CONTENT_TYPE,
@@ -55,6 +58,7 @@ public class SecurityConfig {
                 "GET", "POST", "PUT", "DELETE", "PATCH"));
         config.setExposedHeaders(List.of("x-auth-token"));
         source.registerCorsConfiguration("/**", config);
+        log.info("******Origin: " + config.checkOrigin("Origin"));
         return new CorsFilter(source);
     }
 
