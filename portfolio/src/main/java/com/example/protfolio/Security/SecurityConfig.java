@@ -5,6 +5,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,6 +34,10 @@ import org.springframework.web.filter.CorsFilter;
 import com.example.protfolio.Services.HomeUserDetailsService.HomeUserDetailsService;
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration
@@ -58,8 +63,17 @@ public class SecurityConfig {
                 "GET", "POST", "PUT", "DELETE", "PATCH"));
         config.setExposedHeaders(List.of("x-auth-token"));
         source.registerCorsConfiguration("/**", config);
-        log.info("******Origin: " + config.checkOrigin("Origin"));
-        return new CorsFilter(source);
+        // Créer un CorsFilter personnalisé pour logger l'origine des requêtes
+        return new CorsFilter(source) {
+            @Override
+            protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+                    throws ServletException, IOException {
+                String origin = request.getHeader("Origin");
+                log.info("Incoming request from Origin: {}", origin);
+                super.doFilterInternal(request, response, filterChain);
+            }
+        };
+        // return new CorsFilter(source);
     }
 
     @Bean
