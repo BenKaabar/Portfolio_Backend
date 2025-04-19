@@ -63,7 +63,6 @@ public class SecurityConfig {
                 "GET", "POST", "PUT", "DELETE", "PATCH"));
         config.setExposedHeaders(List.of("x-auth-token"));
         source.registerCorsConfiguration("/**", config);
-        // Créer un CorsFilter personnalisé pour logger l'origine des requêtes
         return new CorsFilter(source) {
             @Override
             protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -73,7 +72,6 @@ public class SecurityConfig {
                 super.doFilterInternal(request, response, filterChain);
             }
         };
-        // return new CorsFilter(source);
     }
 
     @Bean
