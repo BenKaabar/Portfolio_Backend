@@ -47,8 +47,9 @@ public class ContactServiceImpl implements ContactService {
                 + "<strong>Service:</strong> " + contactRequestDTO.getService() + "<br>"
                 + "<strong>Message:</strong> " + contactRequestDTO.getMessage() + "<br><br>"
                 + "Please follow up as needed.<br><br> " 
-                + "<strong>LinkedIn:</strong> " + home.getLinkedIn() + "<br>"
-                + "<strong>GitHub:</strong> " + home.getGitHub() + "<br><br>"
+                + "<strong>LinkedIn: </strong> " + home.getLinkedIn() + "<br>"
+                + "<strong>GitHub: </strong> " + home.getGitHub() + "<br><br>"
+                + "<strong>Link to my portfolio: </strong> https://portfolio-benkaabar.netlify.app/Home " + "<br><br>"
                 + "Best regards";
         try {
             emailService.sendEmail(Email, Subject, Message);
