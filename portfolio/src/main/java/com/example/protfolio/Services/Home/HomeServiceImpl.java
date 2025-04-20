@@ -24,17 +24,6 @@ public class HomeServiceImpl implements HomeService{
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // @Override
-    // public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    //     log.info("Loading user by username: {}", username);
-    //     Home home = homeRepository.findByGmail(username);
-    //     if (home == null) {
-    //         throw new UsernameNotFoundException("User not found with email: " + username);
-    //     }
-    //     log.info("User found: {}", home.getGmail());
-    //     return new HomeUserDetails(home);
-    // }
-
     @Override
     public void CreateHome(HomeRequestDTO homeRequestDTO, MultipartFile image, MultipartFile CVfile)
             throws IOException {
